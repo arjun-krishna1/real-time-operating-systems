@@ -11,10 +11,8 @@
 
 void setupLEDS (void)
 {
-	LPC_GPIO1->FIODIR &= 0x00000000; // bit 28,29, 31 on GPIO1
+	// set these LED's as output
 	LPC_GPIO1->FIODIR |= 0xB0000000; // bit 28,29, 31 on GPIO1
-	
-	LPC_GPIO2->FIODIR &= 0x00000000;
 	LPC_GPIO2->FIODIR |= 0x0000007C; // bit 2,3,4,5,6 on GPIO2
 } 
 
@@ -34,7 +32,7 @@ void setupADC (void)
 	LPC_ADC->ADCR |= 1 << 24; // set START bits to initiate conversion
 }
 
-__NO_RETURN void printADC(void *arg)
+__NO_RETURN void printADC(void *arg) // ADC thread
 {
 	while(1)
 	{
@@ -45,12 +43,12 @@ __NO_RETURN void printADC(void *arg)
 			printf("%.1f\n", a);
 			
 			LPC_ADC->ADCR |= 1 << 24; // set START bits to initiate conversion
-			osThreadYield();
+			osThreadYield(); // give other threads a chance to work
 		}
 	}
 }
 
-__NO_RETURN void joystickLED (void *arg)
+__NO_RETURN void joystickLED (void *arg) // Joystick, LED'S thread
 {
 	while(1)
 	{
@@ -110,14 +108,19 @@ __NO_RETURN void pushButton (void *arg)
 
 int main (void)
 {
+	printf("radical\n");
 	setupLEDS();
 	setupADC();
 	
 	SystemCoreClockUpdate(); 
 	osKernelInitialize();
+	
+	// inform RTOS of threads to run
 	osThreadNew(printADC, NULL, NULL);
 	osThreadNew(joystickLED, NULL, NULL);
 	osThreadNew(pushButton, NULL, NULL);
+	
+	// start kernel
 	osKernelStart();
 	
 }
