@@ -9,8 +9,49 @@
 #include <stdlib.h>
 #include <math.h>
 
+/*
+void setupLEDS (void)
+{
+	LPC_GPIO1->FIODIR &= 0x00000000; // bit 28,29, 31 on GPIO1
+	LPC_GPIO1->FIODIR |= 0xB0000000; // bit 28,29, 31 on GPIO1
+	
+	LPC_GPIO2->FIODIR &= 0x00000000;
+	LPC_GPIO1->FIODIR |= 0x0000007C; // bit 2,3,4,5,6 on GPIO2
+} */
 
+__NO_RETURN void printArjun(void *arg) 
+{
+	while (1)
+	{
+		printf("Hello Arjun\n");
+		osDelay(osKernelGetTickFreq() / 5);
+	}
 
+}
+
+__NO_RETURN void printAndrei(void *arg) 
+{
+	while (1)
+	{
+		printf("Hello Andrei\n");
+		osDelay(osKernelGetTickFreq() / 10);
+	}
+}
+
+int main (void)
+{
+	SystemCoreClockUpdate(); 
+	osKernelInitialize();
+	osThreadNew(printArjun, NULL, NULL);
+	osThreadNew(printAndrei, NULL, NULL);
+	osKernelStart();
+	
+	
+	
+	
+}
+
+/*
 int main (void) // LED program (program 1)
 {    
     LPC_GPIO1->FIODIR |= 1u << 28;  // configure P1.28, the leftmost led as output
@@ -28,7 +69,7 @@ int main (void) // LED program (program 1)
        
         LPC_GPIO1->FIOCLR |= 1u << 28;
     }
-} 
+} */
 
 /*
 int main(void) // joystick program (program 2)
