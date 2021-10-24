@@ -9,178 +9,16 @@
 #include <stdlib.h>
 #include <math.h>
 
-/*
 void setupLEDS (void)
 {
 	LPC_GPIO1->FIODIR &= 0x00000000; // bit 28,29, 31 on GPIO1
 	LPC_GPIO1->FIODIR |= 0xB0000000; // bit 28,29, 31 on GPIO1
 	
 	LPC_GPIO2->FIODIR &= 0x00000000;
-	LPC_GPIO1->FIODIR |= 0x0000007C; // bit 2,3,4,5,6 on GPIO2
-} */
+	LPC_GPIO2->FIODIR |= 0x0000007C; // bit 2,3,4,5,6 on GPIO2
+} 
 
-__NO_RETURN void printArjun(void *arg) 
-{
-	while (1)
-	{
-		printf("Hello Arjun\n");
-		osDelay(osKernelGetTickFreq() / 5);
-	}
-
-}
-
-__NO_RETURN void printAndrei(void *arg) 
-{
-	while (1)
-	{
-		printf("Hello Andrei\n");
-		osDelay(osKernelGetTickFreq() / 10);
-	}
-}
-
-int main (void)
-{
-	SystemCoreClockUpdate(); 
-	osKernelInitialize();
-	osThreadNew(printArjun, NULL, NULL);
-	osThreadNew(printAndrei, NULL, NULL);
-	osKernelStart();
-	
-	
-	
-	
-}
-
-/*
-int main (void) // LED program (program 1)
-{    
-    LPC_GPIO1->FIODIR |= 1u << 28;  // configure P1.28, the leftmost led as output
-
-    LPC_GPIO1->FIOCLR |= 1u << 28;	// turn leftmost led off
-    
-    while(1)
-    {
-        while(LPC_GPIO2->FIOPIN & (1u << 10)); // while 10th pin in register 2 (P2.10, the button) is 1 (button is not pressed)
-        
-        // turn the leftmost LED on
-        LPC_GPIO1->FIOSET |= 1u << 28; // set P1.28 to high to turn the led on that pin on
-        
-        while(!(LPC_GPIO2->FIOPIN & (1u << 10)));
-       
-        LPC_GPIO1->FIOCLR |= 1u << 28;
-    }
-} */
-
-/*
-int main(void) // joystick program (program 2)
-{
-	
-	while(1)
-	{
-		if(!(LPC_GPIO1->FIOPIN & (1u << 20)))
-		{
-			printf("PRESSED     ");
-		}
-		else
-		{
-			printf("NOT PRESSED ");
-		}
-		
-		if(!(LPC_GPIO1->FIOPIN & (1u << 23)))
-		{
-			printf("NORTH\n");
-		}
-		
-		else if(!(LPC_GPIO1->FIOPIN & (1u << 24)))
-		{
-			printf("EAST\n");
-		}
-		
-		else if(!(LPC_GPIO1->FIOPIN & (1u << 25)))
-		{
-			printf("SOUTH\n");
-		}
-		
-		else if(!(LPC_GPIO1->FIOPIN & (1u << 26)))
-		{
-			printf("WEST\n");
-		}
-		
-		else
-		{
-			printf("CENTER\n");
-		}
-	}
-} */
-
-
-/*
-int main (void) // number to LED program (program 3)
-{
-	LPC_GPIO1->FIODIR |= 1u << 28; // set LEDS as output
-	LPC_GPIO1->FIODIR |= 1u << 29;
-	LPC_GPIO1->FIODIR |= 1u << 31;
-	LPC_GPIO2->FIODIR |= 1u << 2; 
-	LPC_GPIO2->FIODIR |= 1u << 3;
-	LPC_GPIO2->FIODIR |= 1u << 4;
-	LPC_GPIO2->FIODIR |= 1u << 5;
-	LPC_GPIO2->FIODIR |= 1u << 6; 
-	
-	char string[3];
-	uint8_t number = 0;
-	
-	while(1)
-	{
-		printf("Please input your number and terminate with ctrl+j\n");
-	
-		scanf("%s", string);
-		number = atoi(string); // atoi converts string to an integer
-		
-		if (number & (1 << 7))
-			LPC_GPIO1->FIOSET |= 1u << 28;
-		else
-			LPC_GPIO1->FIOCLR |= 1u << 28;
-		
-		if (number & (1 << 6))
-			LPC_GPIO1->FIOSET |= 1u << 29;
-		else
-			LPC_GPIO1->FIOCLR |= 1u << 29;
-		
-		if (number & (1 << 5))
-			LPC_GPIO1->FIOSET |= 1u << 31;
-		else
-			LPC_GPIO1->FIOCLR |= 1u << 31;
-		
-		if (number & (1 << 4))
-			LPC_GPIO2->FIOSET |= 1u << 2;
-		else
-			LPC_GPIO2->FIOCLR |= 1u << 2;
-		
-		if (number & (1 << 3))
-			LPC_GPIO2->FIOSET |= 1u << 3;
-		else
-			LPC_GPIO2->FIOCLR |= 1u << 3;
-		
-		if (number & (1 << 2))
-			LPC_GPIO2->FIOSET |= 1u << 4;
-		else
-			LPC_GPIO2->FIOCLR |= 1u << 4;
-		
-		if (number & (1 << 1))
-			LPC_GPIO2->FIOSET |= 1u << 5;
-		else
-			LPC_GPIO2->FIOCLR |= 1u << 5;
-		
-		if (number & (1 << 0))
-			LPC_GPIO2->FIOSET |= 1u << 6;
-		else
-			LPC_GPIO2->FIOCLR |= 1u << 6;		
-	}
-} */
-
-
-/*
-int main (void)  // ADC program (program 4)
+void setupADC (void)
 {
 	LPC_SC->PCONP |= 1u << 12; // enable ADC power/clock control bit
 	LPC_ADC->ADCR |= 1 << 21; // PDN = 1 --> ADC is operational
@@ -189,13 +27,15 @@ int main (void)  // ADC program (program 4)
 	LPC_PINCON->PINSEL1 &= ~(1u << 19); // set pin function to AD0.2
 	LPC_PINCON->PINSEL1 |= 1u << 18;
 	
-	
 	LPC_ADC->ADCR &= ~(0xff); // clear bits 0 - 7 before setting bit 2
 	LPC_ADC->ADCR |= 1u << 2; // select bit 2 so AD0.2 is sampled
 	LPC_ADC->ADCR |= 0x03 << 8; // set clock division by (3+1)
 	LPC_ADC->ADCR &= ~(0 << 16); // burst  bit is 0
 	LPC_ADC->ADCR |= 1 << 24; // set START bits to initiate conversion
+}
 
+__NO_RETURN void printADC(void *arg)
+{
 	while(1)
 	{
 		if(LPC_ADC->ADGDR & (1u << 31)) 
@@ -205,7 +45,81 @@ int main (void)  // ADC program (program 4)
 			printf("%.1f\n", a);
 			
 			LPC_ADC->ADCR |= 1 << 24; // set START bits to initiate conversion
+			osThreadYield();
 		}
 	}
-} 
-*/
+}
+
+__NO_RETURN void joystickLED (void *arg)
+{
+	while(1)
+	{
+		LPC_GPIO2->FIOCLR |= 0x0000007C; // clear 5 rightmost LEDs 
+		
+		if(!(LPC_GPIO1->FIOPIN & (1u << 20))) // check if joystick is pressed
+		{
+			LPC_GPIO2->FIOSET |= (1 << 2);
+		}
+		else
+		{
+			LPC_GPIO2->FIOCLR |= (1 << 2);
+		}
+		
+		if(!(LPC_GPIO1->FIOPIN & (1u << 23))) // check north
+		{
+			LPC_GPIO2->FIOSET |= (1 << 6);
+		}
+		
+		else if(!(LPC_GPIO1->FIOPIN & (1u << 24))) // check east
+		{
+			LPC_GPIO2->FIOSET |= (1 << 5);
+		}
+		
+		else if(!(LPC_GPIO1->FIOPIN & (1u << 25))) // check south
+		{
+			LPC_GPIO2->FIOSET |= (1 << 4);
+		}
+		
+		else if(!(LPC_GPIO1->FIOPIN & (1u << 26))) // check west
+		{
+			LPC_GPIO2->FIOSET |= (1 << 3);
+		}
+		
+		osThreadYield();
+	}	
+}
+
+
+__NO_RETURN void pushButton (void *arg)
+{ // active low button
+	while (1)
+	{
+		if (!(LPC_GPIO2->FIOPIN & (1u << 10))) // wait for button to be pressed (low)
+		{
+			while (!(LPC_GPIO2->FIOPIN & (1u << 10)) ); // wait for button to be released after press
+			
+			if (LPC_GPIO1->FIOPIN & (1u << 28)) // switch state of LED
+				LPC_GPIO1->FIOCLR |= (1u << 28);
+			else
+				LPC_GPIO1->FIOSET |= (1u << 28);
+		}
+		osThreadYield();
+	}
+}
+
+
+int main (void)
+{
+	setupLEDS();
+	setupADC();
+	
+	SystemCoreClockUpdate(); 
+	osKernelInitialize();
+	osThreadNew(printADC, NULL, NULL);
+	osThreadNew(joystickLED, NULL, NULL);
+	osThreadNew(pushButton, NULL, NULL);
+	osKernelStart();
+	
+}
+
+
