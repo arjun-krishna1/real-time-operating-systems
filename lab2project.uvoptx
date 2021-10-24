@@ -147,11 +147,6 @@
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
-      <ScvdPack>
-        <Filename>C:\Users\ikica\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
-        <Type>ARM.CMSIS.5.7.0</Type>
-        <SubType>1</SubType>
-      </ScvdPack>
       <ToolboxButtons>
         <Wi>
           <IntNumber>0</IntNumber>

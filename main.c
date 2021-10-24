@@ -11,10 +11,8 @@
 
 void setupLEDS (void)
 {
-	LPC_GPIO1->FIODIR &= 0x00000000; // bit 28,29, 31 on GPIO1
+	// set these LED's as output
 	LPC_GPIO1->FIODIR |= 0xB0000000; // bit 28,29, 31 on GPIO1
-	
-	LPC_GPIO2->FIODIR &= 0x00000000;
 	LPC_GPIO2->FIODIR |= 0x0000007C; // bit 2,3,4,5,6 on GPIO2
 } 
 
