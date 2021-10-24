@@ -3,14 +3,14 @@
 		Andrei Ikic (a2ikic@uwaterloo.ca)
 */
 
+#include <cmsis_os2.h>
 #include <LPC17xx.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-#define task 3
 
-#if (task == 1)
+
 int main (void) // LED program (program 1)
 {    
     LPC_GPIO1->FIODIR |= 1u << 28;  // configure P1.28, the leftmost led as output
@@ -30,7 +30,7 @@ int main (void) // LED program (program 1)
     }
 } 
 
-#elif (task == 2)
+/*
 int main(void) // joystick program (program 2)
 {
 	
@@ -70,10 +70,10 @@ int main(void) // joystick program (program 2)
 			printf("CENTER\n");
 		}
 	}
-}
+} */
 
 
-#elif (task == 3)
+/*
 int main (void) // number to LED program (program 3)
 {
 	LPC_GPIO1->FIODIR |= 1u << 28; // set LEDS as output
@@ -135,10 +135,10 @@ int main (void) // number to LED program (program 3)
 		else
 			LPC_GPIO2->FIOCLR |= 1u << 6;		
 	}
-}
+} */
 
 
-#elif (task == 4)
+/*
 int main (void)  // ADC program (program 4)
 {
 	LPC_SC->PCONP |= 1u << 12; // enable ADC power/clock control bit
@@ -167,4 +167,4 @@ int main (void)  // ADC program (program 4)
 		}
 	}
 } 
-#endif
+*/
