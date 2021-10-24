@@ -77,12 +77,12 @@ __NO_RETURN void joystickLED (void *arg)
 		
 		else if(!(LPC_GPIO1->FIOPIN & (1u << 25))) // check south
 		{
-			LPC_GPIO2->FIOSET |= (1 << 4);
+			LPC_GPIO2->FIOSET |= (1 << 6) | (1 << 5);
 		}
 		
 		else if(!(LPC_GPIO1->FIOPIN & (1u << 26))) // check west
 		{
-			LPC_GPIO2->FIOSET |= (1 << 3);
+			LPC_GPIO2->FIOSET |= (1 << 4);
 		}
 		
 		osThreadYield();
