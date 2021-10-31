@@ -9,6 +9,14 @@
 #include <stdlib.h>
 #include <math.h>
 
+int main (void)
+{
+	printf("Hello World!\n");
+	return 0;
+	
+}
+
+/*
 void setupLEDS (void)
 {
 	// set these LED's as output
@@ -124,5 +132,5 @@ int main (void)
 	osKernelStart();
 	
 }
-
+*/
 
