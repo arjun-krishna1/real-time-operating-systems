@@ -393,6 +393,16 @@
               <FileType>1</FileType>
               <FilePath>.\lab2_starter_code\src\uart.c</FilePath>
             </File>
+            <File>
+              <FileName>lfsr113.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lab4\src\lfsr113.c</FilePath>
+            </File>
+            <File>
+              <FileName>random.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lab4\src\random.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
