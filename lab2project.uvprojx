@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>__RTGT_UART</Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>.\lab4\src</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -384,16 +384,6 @@
           <GroupName>System Code</GroupName>
           <Files>
             <File>
-              <FileName>Retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\lab2_starter_code\src\Retarget.c</FilePath>
-            </File>
-            <File>
-              <FileName>uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\lab2_starter_code\src\uart.c</FilePath>
-            </File>
-            <File>
               <FileName>lfsr113.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\lab4\src\lfsr113.c</FilePath>
@@ -402,6 +392,16 @@
               <FileName>random.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\lab4\src\random.c</FilePath>
+            </File>
+            <File>
+              <FileName>Retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lab4\src\Retarget.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lab4\src\uart.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -801,16 +801,6 @@
           <GroupName>System Code</GroupName>
           <Files>
             <File>
-              <FileName>Retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\lab2_starter_code\src\Retarget.c</FilePath>
-            </File>
-            <File>
-              <FileName>uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\lab2_starter_code\src\uart.c</FilePath>
-            </File>
-            <File>
               <FileName>lfsr113.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\lab4\src\lfsr113.c</FilePath>
@@ -819,6 +809,16 @@
               <FileName>random.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\lab4\src\random.c</FilePath>
+            </File>
+            <File>
+              <FileName>Retarget.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lab4\src\Retarget.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lab4\src\uart.c</FilePath>
             </File>
           </Files>
         </Group>

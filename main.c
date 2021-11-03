@@ -8,28 +8,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <random.h>
 
 #define N 2
 
-__NO_RETURN void client(osMessageQueueId_t queue_id)
+// TODO make sure osDelay wait is correct
+int averageArrivalRate = 9;
+int averageServiceRate = 10;
+int workOrder = 7;
+
+__NO_RETURN void client(osMessageQueueId_t q_id)
 {
+	printf("client %d\n", osMessageQueueGetCapacity(q_id));
 	while(1)
 	{	
-		printf("client\n");
+		osDelay(((next_event() * osKernelGetTickFreq()) /  averageArrivalRate) >> 16);
+		osMessageQueuePut(q_id, &workOrder, 0, 0);
 		osThreadYield();
 	}
 }
 
-__NO_RETURN void server(osMessageQueueId_t queue_id)
+__NO_RETURN void server(osMessageQueueId_t q_id)
 {
+	printf("server %d\n", osMessageQueueGetCapacity(q_id));
 	while(1)
 	{
-		printf("server\n");
+		osDelay(((next_event() * osKernelGetTickFreq()) /  averageServiceRate) >> 16);
+		int msg;
+		osMessageQueueGet(q_id, &msg, 0, 0);
+		printf("message %d\n", msg);
 		osThreadYield();
 	}
 }
 
-__NO_RETURN void monitor(osMessageQueueId_t queue_id)
+__NO_RETURN void monitor(osMessageQueueId_t q_id)
 {
 	printf("entered monitor\n");
 	while(1)
@@ -58,7 +70,7 @@ int main (void)
 		osThreadNew(server, messageQueues[i], NULL);
 	}
 	
-	osThreadNew(monitor, NULL, NULL);
+	//osThreadNew(monitor, NULL, NULL);
 	printf("starting kernels\n");
 	osKernelStart();
 	return 0;
@@ -101,12 +113,7 @@ int main (void)
 	// GOTO wait
 	
 	// server:
-	// determining which queue it is watching
-	// wait a random amount of time
-	// retrieve a message from queue
-	// GOTO wait
-	// wait: simulate service time
-	
+
 	// have one server function that is used to create N server threads
 	// each with a parameter, queue id
 	// don't have N separate server functions
@@ -136,8 +143,20 @@ int main (void)
 	DONE
 	client:
 		determine which queue you are sending messages to
+		DONE
 		wait a random period of time
+		DONE
 		send a message to the queue
 		GOTO wait
+		server:
+			DONE
+			// determining which queue it is watching
+			// wait a random amount of time
+			DONE
+			// retrieve a message from queue
+			// GOTO wait
+			// wait: simulate service time
+			DONE
+			
 		
 */
