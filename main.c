@@ -67,16 +67,17 @@ __NO_RETURN void monitor(void *arg)
 	while(1)
 	{
 		int n_iter = 0;
-		if(n_iter % 20) printf("Qid , Time , Sent , Recv , Over , Wait \n");
+		if(n_iter % 20) printf("Qid, Time, Sent, Recv, Over, Wait, P_blk\n");
 		n_iter = (n_iter + 1)%20;
 		for(int i = 0; i < N; i++)
 		{
 			printf(" Q%d,", i);
-			printf(" %5d,", osKernelGetTickCount() / osKernelGetTickFreq());
-			printf(" %5d,", messagesSent[i]);
-			printf(" %5d,", messagesRecieved[i]);
-			printf(" %5d,", messagesOverflow[i]);
-			printf(" %5d", osMessageQueueGetCount(messageQueues[i]));
+			printf("%5d,", osKernelGetTickCount() / osKernelGetTickFreq());
+			printf("%5d,", messagesSent[i]);
+			printf("%5d,", messagesRecieved[i]);
+			printf("%5d,", messagesOverflow[i]);
+			printf("%5d", osMessageQueueGetCount(messageQueues[i]));
+			printf("%8.4d", messagesOverflow[i]/messagesSent[i]);
 			
 			printf("\n");
 		}
