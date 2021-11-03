@@ -4,171 +4,33 @@ server 10
 client 10
 server 10
 monitor
-i 0 time_elapsed 0 messages_sent 0 messages_recieved 0 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 0 messages_recieved 0 num_messages_in_queue 0
+ Q0,     0,     0,     0,     0,     0
+ Q1,     0,     0,     0,     0,     0
 
-i 0 time_elapsed 0 messages_sent 1 messages_recieved 0 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 0 messages_recieved 0 num_messages_in_queue 0
+ Q0,     0,     1,     0,     0,     1
+ Q1,     0,     0,     0,     0,     0
 
-i 0 time_elapsed 0 messages_sent 1 messages_recieved 0 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 0 messages_recieved 0 num_messages_in_queue 0
+ Q0,     0,     1,     0,     0,     1
+ Q1,     0,     0,     0,     0,     0
 
-i 0 time_elapsed 0 messages_sent 1 messages_recieved 0 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 0 num_messages_in_queue 1
+ Q0,     0,     1,     0,     0,     1
+ Q1,     0,     0,     0,     0,     0
 
-i 0 time_elapsed 0 messages_sent 1 messages_recieved 0 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 0 num_messages_in_queue 1
+ Q0,     0,     1,     0,     0,     1
+ Q1,     0,     1,     0,     0,     1
 
-i 0 time_elapsed 0 messages_sent 1 messages_recieved 0 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
+ Q0,     0,     1,     0,     0,     1
+ Q1,     0,     1,     0,     0,     1
 
-i 0 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
+ Q0,     0,     1,     0,     0,     1
+ Q1,     0,     1,     0,     0,     1
 
-i 0 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
+ Q0,     0,     1,     0,     0,     1
+ Q1,     0,     1,     0,     0,     1
 
-i 0 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
+ Q0,     0,     1,     1,     0,     0
+ Q1,     0,     1,     1,     0,     0
 
-i 0 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 1 messages_recieved 1 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 2 messages_recieved 1 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 3 messages_recieved 3 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 4 messages_recieved 4 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 4 messages_recieved 4 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 2 messages_recieved 2 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 2 num_messages_in_queue 1
-
-i 0 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 2 num_messages_in_queue 1
-
-i 0 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 2 num_messages_in_queue 1
-
-i 0 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 3 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 3 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 3 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 6 messages_recieved 5 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 3 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 7 messages_recieved 6 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 3 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 8 messages_recieved 7 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 3 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 9 messages_recieved 7 num_messages_in_queue 2
-i 1 time_elapsed 0 messages_sent 3 messages_recieved 3 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 9 messages_recieved 8 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 4 messages_recieved 4 num_messages_in_queue 1
-
-i 0 time_elapsed 0 messages_sent 10 messages_recieved 8 num_messages_in_queue 2
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 4 num_messages_in_queue 1
-
-i 0 time_elapsed 0 messages_sent 10 messages_recieved 8 num_messages_in_queue 2
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 4 num_messages_in_queue 1
-
-i 0 time_elapsed 0 messages_sent 10 messages_recieved 8 num_messages_in_queue 2
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 4 num_messages_in_queue 1
-
-i 0 time_elapsed 0 messages_sent 10 messages_recieved 8 num_messages_in_queue 2
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 10 messages_recieved 9 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 10 messages_recieved 9 num_messages_in_queue 1
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 11 messages_recieved 9 num_messages_in_queue 2
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 12 messages_recieved 9 num_messages_in_queue 3
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 12 messages_recieved 10 num_messages_in_queue 2
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 13 messages_recieved 10 num_messages_in_queue 3
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 13 messages_recieved 10 num_messages_in_queue 3
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 13 messages_recieved 10 num_messages_in_queue 3
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 13 messages_recieved 10 num_messages_in_queue 3
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 13 messages_recieved 10 num_messages_in_queue 3
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 14 messages_recieved 10 num_messages_in_queue 4
-i 1 time_elapsed 0 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 0 messages_sent 14 messages_recieved 11 num_messages_in_queue 3
-i 1 time_elapsed 1 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 1 messages_sent 14 messages_recieved 11 num_messages_in_queue 3
-i 1 time_elapsed 1 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 1 messages_sent 15 messages_recieved 11 num_messages_in_queue 4
-i 1 time_elapsed 1 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 1 messages_sent 15 messages_recieved 11 num_messages_in_queue 4
-i 1 time_elapsed 1 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 1 messages_sent 15 messages_recieved 11 num_messages_in_queue 4
-i 1 time_elapsed 1 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 1 messages_sent 15 messages_recieved 12 num_messages_in_queue 3
-i 1 time_elapsed 1 messages_sent 5 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 1 messages_sent 15 messages_recieved 12 num_messages_in_queue 3
-i 1 time_elapsed 1 messages_sent 6 messages_recieved 5 num_messages_in_queue 0
-
-i 0 time_elapsed 1 messages_sent 15 messages_recieved 13 num_messages_in_queue 2
-i 1 time_elapsed 1 messages_sent 7 messages_recieved 6 num_messages_in_queue 1
-
-i 0 time_elapsed 1 messages_sent 16 messages_recieved 13 num_messages_in_queue 3
-i 1 time_elapsed 1 messages_sent 7 messages_recieved 6 num_messages_in_queue 1
-
-i 0 time_elapsed 1 messages_sent 16 messages_recieved 13 num_messages_in_queue 3
-i 1 time_elapsed 1 messages_sent 8 messages_recieved 6 num_messages_in_queue 2
-
-i 0 time_elapsed 1 messages_sent 16 messages_recieved 13 num_messages_in_queue 3
-i 1 time_elapsed 1 messages_sent 8 messages_recieved 6 num_messages_in_queue 2
-
-i 0 time_elapsed 1 messages_sent 16 messages_recieved 13 num_messages_in_queue 3
-i 1 time_elapsed 1 messages_sent 9 messages_recieved 6 num_messages_in_queue 3
-
-i 0 time_elapsed 1 messages_sent 17 messages_recieved 13 num_messages_in_queue 4
-i 1 time_elapsed 1 messages_sent 9 messages_recieved 6 num_messages_in_queue 3
+ Q0,     0,     1,     1,     0,     0
+ Q1,     0,     1,     1,     0,     0
 

@@ -25,6 +25,7 @@ int messageIndices[N];
 // arrays to hold statistics for each message queue
 int messagesSent[N];
 int messagesRecieved[N];
+int messagesOverflow[N];
 
 __NO_RETURN void client(void *q_id_void)
 {
@@ -34,8 +35,12 @@ __NO_RETURN void client(void *q_id_void)
 	while(1)
 	{	
 		osDelay(((next_event() * osKernelGetTickFreq()) /  averageArrivalRate) >> 16);
-		osMessageQueuePut(q_id, &workOrder, 0, 0); // check if able to add message to queue
-		messagesSent[q_id_int] += 1;
+		osStatus_t status = osMessageQueuePut(q_id, &workOrder, 0, 0);
+		if(status == osOK)
+			messagesSent[q_id_int] += 1;
+		else if(status == osErrorResource)
+			messagesOverflow[q_id_int] += 1;
+		
 		osThreadYield();
 	}
 }
@@ -52,7 +57,6 @@ __NO_RETURN void server(void *q_id_void)
 		osStatus_t status = osMessageQueueGet(q_id, &msg, 0, osWaitForever);
 		if(status == osOK)
 			messagesRecieved[q_id_int] += 1;
-		else printf("%d\n", status);
 		osThreadYield();
 	}
 }
@@ -62,13 +66,18 @@ __NO_RETURN void monitor(void *arg)
 	printf("monitor\n");
 	while(1)
 	{
+		int n_iter = 0;
+		if(n_iter % 20) printf("Qid , Time , Sent , Recv , Over , Wait \n");
+		n_iter = (n_iter + 1)%20;
 		for(int i = 0; i < N; i++)
 		{
-			printf("i %d ", i);
-			printf("time_elapsed %d ", osKernelGetTickCount() / osKernelGetTickFreq());
-			printf("messages_sent %d ", messagesSent[i]);
-			printf("messages_recieved %d ", messagesRecieved[i]);
-			printf("num_messages_in_queue %d", osMessageQueueGetCount(messageQueues[i]));
+			printf(" Q%d,", i);
+			printf(" %5d,", osKernelGetTickCount() / osKernelGetTickFreq());
+			printf(" %5d,", messagesSent[i]);
+			printf(" %5d,", messagesRecieved[i]);
+			printf(" %5d,", messagesOverflow[i]);
+			printf(" %5d", osMessageQueueGetCount(messageQueues[i]));
+			
 			printf("\n");
 		}
 		printf("\n");
