@@ -14,13 +14,12 @@
 #define MONITOR_PERIOD 1
 #define AVERAGE_ARRIVAL_RATE 9
 #define AVERAGE_SERVICE_RATE 10
-#define LOAD_FACTOR (AVERAGE_ARRIVAL_RATE / AVERAGE_SERVICE_RATE)
 #define QUEUE_SIZE 10
-#define EXPECTED_BLOCK_PROBABILITY (((pow(LOAD_FACTOR, QUEUE_SIZE))*(1 - LOAD_FACTOR))/(1 - pow(LOAD_FACTOR, QUEUE_SIZE)))
 
 // TODO make sure osDelay wait is correct
 int workOrder = 7;
 int balance[N];
+
 // create a new message queue
 osMessageQueueId_t messageQueues [N];
 int messageIndices[N];
@@ -71,6 +70,11 @@ __NO_RETURN void server(void *q_id_void)
 __NO_RETURN void monitor(void *arg)
 {
 	printf("monitor\n");
+	
+	float loadFactor = ((float)AVERAGE_ARRIVAL_RATE) / ((float)AVERAGE_SERVICE_RATE);
+	float expectedBlockProbability = ((float)((pow(loadFactor, QUEUE_SIZE))*(1 - loadFactor)))/((float)(1 - pow(loadFactor, QUEUE_SIZE)));
+	printf("expectedBlockProbability %8.5f", expectedBlockProbability);
+	
 	while(1)
 	{
 		int elapsedTime = osKernelGetTickCount() / osKernelGetTickFreq(); 
@@ -97,10 +101,9 @@ __NO_RETURN void monitor(void *arg)
 			printf("%8.4f", serviceRate);
 
 			
-			printf("%8.4f", ((float)(blockProbability - EXPECTED_BLOCK_PROBABILITY) )/ ((float) EXPECTED_BLOCK_PROBABILITY));	
+			printf("%8.4f", ((float)(blockProbability - expectedBlockProbability) )/ ((float) expectedBlockProbability));	
 			printf("%8.4f", ((float)(arrivalRate - AVERAGE_ARRIVAL_RATE))/ ((float) AVERAGE_ARRIVAL_RATE));	
 			printf("%8.4f", ((float)(serviceRate - AVERAGE_SERVICE_RATE)/ ((float) AVERAGE_SERVICE_RATE)));	
-			
 			
 			printf("\n");
 		}
