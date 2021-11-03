@@ -11,7 +11,7 @@
 #include <random.h>
 
 #define N 2
-#define MONITOR_PERIOD 0.01
+#define MONITOR_PERIOD 1
 #define AVERAGE_ARRIVAL_RATE 9
 #define AVERAGE_SERVICE_RATE 10
 #define LOAD_FACTOR (AVERAGE_ARRIVAL_RATE / AVERAGE_SERVICE_RATE)
@@ -73,17 +73,16 @@ __NO_RETURN void monitor(void *arg)
 	printf("monitor\n");
 	while(1)
 	{
-		int n_iter = 0;
-		if(n_iter % 20)
+		int elapsedTime = osKernelGetTickCount() / osKernelGetTickFreq(); 
+		
+		if(!(elapsedTime % 20))
 		{
 			printf("Qid, Time, Sent, Recv, Over, Wait,   P_blk,");
-			printf("			Arrv,    Serv,   Epblk,   Earrv,   Eserv\n");
+			printf("   Arrv,  Serv,  Epblk, Earrv, Eserv\n");
 		}
-		n_iter = (n_iter + 1)%20;
 		for(int i = 0; i < N; i++)
 		{
 			printf(" Q%d,", i);
-			int elapsedTime = osKernelGetTickCount() / osKernelGetTickFreq(); 
 			printf("%5d,", elapsedTime);
 			printf("%5d,", messagesSent[i]);
 			printf("%5d,", messagesRecieved[i]);
