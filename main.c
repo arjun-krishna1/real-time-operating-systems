@@ -73,7 +73,7 @@ __NO_RETURN void monitor(void *arg)
 	
 	float loadFactor = ((float)AVERAGE_ARRIVAL_RATE) / ((float)AVERAGE_SERVICE_RATE);
 	float expectedBlockProbability = ((float)((pow(loadFactor, QUEUE_SIZE))*(1 - loadFactor)))/((float)(1 - pow(loadFactor, QUEUE_SIZE)));
-	printf("expectedBlockProbability %8.5f", expectedBlockProbability);
+	//printf("expectedBlockProbability %8.5f", expectedBlockProbability);
 	
 	while(1)
 	{
@@ -82,7 +82,7 @@ __NO_RETURN void monitor(void *arg)
 		if(!(elapsedTime % 20))
 		{
 			printf("Qid, Time, Sent, Recv, Over, Wait,   P_blk,");
-			printf("   Arrv,  Serv,  Epblk, Earrv, Eserv\n");
+			printf("    Arrv,    Serv,   Epblk,   Earrv,   Eserv\n");
 		}
 		for(int i = 0; i < N; i++)
 		{
@@ -94,15 +94,15 @@ __NO_RETURN void monitor(void *arg)
 			printf("%5d,", osMessageQueueGetCount(messageQueues[i]));
 			
 			float blockProbability = ((float)messagesOverflow[i])/((float)messagesSent[i]);
-			printf("%8.4f", blockProbability);
+			printf("%8.4f,", blockProbability);
 			float arrivalRate = ((float)messagesSent[i]) / ((float)elapsedTime);
-			printf("%8.4f", arrivalRate);
+			printf("%8.4f,", arrivalRate);
 			float serviceRate = ((float)messagesRecieved[i] )/ serverRandomSleepTime[i];
-			printf("%8.4f", serviceRate);
+			printf("%8.4f,", serviceRate);
 
 			
-			printf("%8.4f", ((float)(blockProbability - expectedBlockProbability) )/ ((float) expectedBlockProbability));	
-			printf("%8.4f", ((float)(arrivalRate - AVERAGE_ARRIVAL_RATE))/ ((float) AVERAGE_ARRIVAL_RATE));	
+			printf("%8.4f,", ((float)(blockProbability - expectedBlockProbability) )/ ((float) expectedBlockProbability));	
+			printf("%8.4f,", ((float)(arrivalRate - AVERAGE_ARRIVAL_RATE))/ ((float) AVERAGE_ARRIVAL_RATE));	
 			printf("%8.4f", ((float)(serviceRate - AVERAGE_SERVICE_RATE)/ ((float) AVERAGE_SERVICE_RATE)));	
 			
 			printf("\n");
