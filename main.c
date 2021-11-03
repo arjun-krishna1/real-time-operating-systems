@@ -26,6 +26,7 @@ int messageIndices[N];
 int messagesSent[N];
 int messagesRecieved[N];
 int messagesOverflow[N];
+float serverRandomSleepTime[N];
 
 __NO_RETURN void client(void *q_id_void)
 {
@@ -52,7 +53,10 @@ __NO_RETURN void server(void *q_id_void)
 	printf("server %d\n", osMessageQueueGetCapacity(q_id));
 	while(1)
 	{
-		osDelay(((next_event() * osKernelGetTickFreq()) /  averageServiceRate) >> 16);
+		
+		int randomSleepTime = ((next_event() * osKernelGetTickFreq()) /  averageServiceRate) >> 16;
+		osDelay(randomSleepTime);
+		serverRandomSleepTime[q_id_int] += ((float)randomSleepTime) / ((float)osKernelGetTickFreq());
 		int msg;
 		osStatus_t status = osMessageQueueGet(q_id, &msg, 0, osWaitForever);
 		if(status == osOK)
@@ -67,17 +71,20 @@ __NO_RETURN void monitor(void *arg)
 	while(1)
 	{
 		int n_iter = 0;
-		if(n_iter % 20) printf("Qid, Time, Sent, Recv, Over, Wait, P_blk\n");
+		if(n_iter % 20) printf("Qid, Time, Sent, Recv, Over, Wait,   P_blk,    Arrv,    Serv\n");
 		n_iter = (n_iter + 1)%20;
 		for(int i = 0; i < N; i++)
 		{
 			printf(" Q%d,", i);
-			printf("%5d,", osKernelGetTickCount() / osKernelGetTickFreq());
+			int elapsedTime = osKernelGetTickCount() / osKernelGetTickFreq(); 
+			printf("%5d,", elapsedTime);
 			printf("%5d,", messagesSent[i]);
 			printf("%5d,", messagesRecieved[i]);
 			printf("%5d,", messagesOverflow[i]);
-			printf("%5d", osMessageQueueGetCount(messageQueues[i]));
-			printf("%8.4d", messagesOverflow[i]/messagesSent[i]);
+			printf("%5d,", osMessageQueueGetCount(messageQueues[i]));
+			printf("%8.4f", ((float)messagesOverflow[i])/((float)messagesSent[i]));
+			printf("%8.4f", ((float)messagesSent[i]) / ((float)elapsedTime));	
+			printf("%8.4f", ((float)messagesRecieved[i] )/ serverRandomSleepTime[i]);	
 			
 			printf("\n");
 		}
