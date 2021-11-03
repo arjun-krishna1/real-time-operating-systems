@@ -12,10 +12,13 @@
 
 #define N 2
 #define MONITOR_PERIOD 0.01
+#define AVERAGE_ARRIVAL_RATE 9
+#define AVERAGE_SERVICE_RATE 10
+#define LOAD_FACTOR (AVERAGE_ARRIVAL_RATE / AVERAGE_SERVICE_RATE)
+#define QUEUE_SIZE 10
+#define EXPECTED_BLOCK_PROBABILITY (((pow(LOAD_FACTOR, QUEUE_SIZE))*(1 - LOAD_FACTOR))/(1 - pow(LOAD_FACTOR, QUEUE_SIZE)))
 
 // TODO make sure osDelay wait is correct
-int averageArrivalRate = 9;
-int averageServiceRate = 10;
 int workOrder = 7;
 int balance[N];
 // create a new message queue
@@ -35,7 +38,7 @@ __NO_RETURN void client(void *q_id_void)
 	printf("client %d\n", osMessageQueueGetCapacity(q_id));
 	while(1)
 	{	
-		osDelay(((next_event() * osKernelGetTickFreq()) /  averageArrivalRate) >> 16);
+		osDelay(((next_event() * osKernelGetTickFreq()) /  AVERAGE_ARRIVAL_RATE) >> 16);
 		osStatus_t status = osMessageQueuePut(q_id, &workOrder, 0, 0);
 		if(status == osOK)
 			messagesSent[q_id_int] += 1;
@@ -54,7 +57,7 @@ __NO_RETURN void server(void *q_id_void)
 	while(1)
 	{
 		
-		int randomSleepTime = ((next_event() * osKernelGetTickFreq()) /  averageServiceRate) >> 16;
+		int randomSleepTime = ((next_event() * osKernelGetTickFreq()) /  AVERAGE_SERVICE_RATE) >> 16;
 		osDelay(randomSleepTime);
 		serverRandomSleepTime[q_id_int] += ((float)randomSleepTime) / ((float)osKernelGetTickFreq());
 		int msg;
@@ -71,7 +74,11 @@ __NO_RETURN void monitor(void *arg)
 	while(1)
 	{
 		int n_iter = 0;
-		if(n_iter % 20) printf("Qid, Time, Sent, Recv, Over, Wait,   P_blk,    Arrv,    Serv\n");
+		if(n_iter % 20)
+		{
+			printf("Qid, Time, Sent, Recv, Over, Wait,   P_blk,");
+			printf("			Arrv,    Serv,   Epblk,   Earrv,   Eserv\n");
+		}
 		n_iter = (n_iter + 1)%20;
 		for(int i = 0; i < N; i++)
 		{
@@ -82,9 +89,19 @@ __NO_RETURN void monitor(void *arg)
 			printf("%5d,", messagesRecieved[i]);
 			printf("%5d,", messagesOverflow[i]);
 			printf("%5d,", osMessageQueueGetCount(messageQueues[i]));
-			printf("%8.4f", ((float)messagesOverflow[i])/((float)messagesSent[i]));
-			printf("%8.4f", ((float)messagesSent[i]) / ((float)elapsedTime));	
-			printf("%8.4f", ((float)messagesRecieved[i] )/ serverRandomSleepTime[i]);	
+			
+			float blockProbability = ((float)messagesOverflow[i])/((float)messagesSent[i]);
+			printf("%8.4f", blockProbability);
+			float arrivalRate = ((float)messagesSent[i]) / ((float)elapsedTime);
+			printf("%8.4f", arrivalRate);
+			float serviceRate = ((float)messagesRecieved[i] )/ serverRandomSleepTime[i];
+			printf("%8.4f", serviceRate);
+
+			
+			printf("%8.4f", ((float)(blockProbability - EXPECTED_BLOCK_PROBABILITY) )/ ((float) EXPECTED_BLOCK_PROBABILITY));	
+			printf("%8.4f", ((float)(arrivalRate - AVERAGE_ARRIVAL_RATE))/ ((float) AVERAGE_ARRIVAL_RATE));	
+			printf("%8.4f", ((float)(serviceRate - AVERAGE_SERVICE_RATE)/ ((float) AVERAGE_SERVICE_RATE)));	
+			
 			
 			printf("\n");
 		}
@@ -102,7 +119,7 @@ int main (void)
 	
 	// create message queues
 	for(int i = 0; i < N; i++)
-		messageQueues[i] = osMessageQueueNew(10, sizeof(int), NULL);
+		messageQueues[i] = osMessageQueueNew(QUEUE_SIZE, sizeof(int), NULL);
 	
 	// create client and serverthreads
 	for(int i = 0; i < N; i ++)
