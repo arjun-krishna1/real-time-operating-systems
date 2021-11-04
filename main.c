@@ -107,7 +107,6 @@ __NO_RETURN void monitor(void *arg)
 			
 			printf("\n");
 		}
-		printf("\n");
 		// wait for one second
 		osDelay(osKernelGetTickFreq()*(MONITOR_PERIOD));
 	}
