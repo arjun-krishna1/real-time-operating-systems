@@ -10,7 +10,6 @@
 // add any #includes here
 
 // add any #defines here
-#define n nGeneral
 #define maxGenerals 7
 
 
@@ -22,11 +21,11 @@ int factorial(int8_t n)
 		return n*factorial(n-1);
 }
 
-
-
-
 // add global variables here
+uint8_t n;
 osMessageQueueId_t messageQueues[maxGenerals];
+bool done;
+osSemaphoreId_t semaphore;
 
 /** Record parameters and set up any OS and other resources
   * needed by your general() and broadcast() functions.
@@ -36,7 +35,9 @@ osMessageQueueId_t messageQueues[maxGenerals];
   * return true if setup successful and n > 3*m, false otherwise
   */
 bool setup(uint8_t nGeneral, bool loyal[], uint8_t reporter) {
-	
+		semaphore = osSemaphoreNew(1, 0, NULL);
+		done = true;
+		n = nGeneral;
 		uint8_t m = 0; // number of traitors
 		for (uint8_t i = 0; i < nGeneral; i++)
 			if (loyal[i] == false)
@@ -51,9 +52,7 @@ bool setup(uint8_t nGeneral, bool loyal[], uint8_t reporter) {
 	
 		for (uint8_t i = 0; i < nGeneral-1; i++) // NEED TO CHECK RETURN VALUES 
 																						 // FOR RESOURCES
-			messageQueues[i] = osMessageQueueNew(queueSize, sizeof(int), NULL);
-		// ^^^^^^^^^^^^^^^^^^ we want strings in the message queues, not int
-		
+			messageQueues[i] = osMessageQueueNew(queueSize, sizeof(char)*maxGenerals, NULL);
 		
     return true;
 }
@@ -74,6 +73,24 @@ void cleanup(void) {
   * sender: general sending the command to other n-1 generals
   */
 void broadcast(char command, uint8_t commander) {
+	/*
+	send command to each general except for commander
+	*/
+	//don't need mutex because
+	//only thread working
+	for(int i = 0; i < n; i++)
+	{
+		if(i != commander)
+		{
+			// make sure command's address is ok to be used
+			// by threads, they might need mutex to access it
+			osMessageQueuePut(
+				messageQueues[i], &command, 0, osWaitForever);
+		}
+	}
+	
+	osSemaphoreAcquire(semaphore, osWaitForever);
+	return;
 }
 
 
@@ -85,5 +102,21 @@ void broadcast(char command, uint8_t commander) {
   * idPtr: pointer to general's id number which is in [0,n-1]
   */
 void general(void *idPtr) {
+		/*
+		wait for a value from broadcast()
+			wait until there is a message in the queue?
+		use the OM algorithm to solve the BG problem
+		general designated as reporter in setup() should output the messages
+		recieved in OM(0)
+		*/
     uint8_t id = *(uint8_t *)idPtr;
+		while(1)
+		{
+			// wait until they recieve a message
+		}
+		
+		// OM algorithm starts here
+		
+		// if reporter output all recieved values
+		
 }
