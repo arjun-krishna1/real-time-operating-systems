@@ -10,9 +10,23 @@
 // add any #includes here
 
 // add any #defines here
+#define n nGeneral
+#define maxGenerals 7
+
+
+int factorial(int8_t n)
+{
+	if (n == 1 || n == 0)
+		return 1;
+	else 
+		return n*factorial(n-1);
+}
+
+
+
 
 // add global variables here
-
+osMessageQueueId_t messageQueues[maxGenerals];
 
 /** Record parameters and set up any OS and other resources
   * needed by your general() and broadcast() functions.
@@ -22,6 +36,25 @@
   * return true if setup successful and n > 3*m, false otherwise
   */
 bool setup(uint8_t nGeneral, bool loyal[], uint8_t reporter) {
+	
+		uint8_t m = 0; // number of traitors
+		for (uint8_t i = 0; i < nGeneral; i++)
+			if (loyal[i] == false)
+				m++;
+	
+		if (!c_assert(n > 3*m))
+			return false;
+	
+		uint8_t queueSize = 1;
+		for (uint8_t i = 1; i <= m; i++)
+			queueSize += (factorial(n) / (n*(n-1)*factorial(n - (i+2))));
+	
+		for (uint8_t i = 0; i < nGeneral-1; i++) // NEED TO CHECK RETURN VALUES 
+																						 // FOR RESOURCES
+			messageQueues[i] = osMessageQueueNew(queueSize, sizeof(int), NULL);
+		// ^^^^^^^^^^^^^^^^^^ we want strings in the message queues, not int
+		
+		
     return true;
 }
 
