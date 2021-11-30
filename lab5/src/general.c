@@ -14,7 +14,7 @@
 #define n nGeneral
 #define maxGenerals 7
 
-int factorial(int8_t n)
+int factorial(int8_t n) // needs to return larger than uint8_t, hence int return value
 {
 	if (n == 1 || n == 0)
 		return 1;
